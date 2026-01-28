@@ -1,0 +1,1 @@
+#Allow users to rollback from a git pull update to the previous version by saving the last versions modules as a zip file.
