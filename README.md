@@ -1,5 +1,7 @@
 Easily modifiable admin tools for everything from system, rig, and network info to diagnostics and repair. 
 
+NOTE: ALL C# IS AI GENERATED, BAT and PYTHON IS NOT
+
 To add a custom command:
 Just drop in a `.bat` file with your logic and name it after the command you'd like (e.g. `SystemClean.bat` shows up as `system clean`).
 
