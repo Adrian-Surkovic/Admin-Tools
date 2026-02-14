@@ -1,3 +1,5 @@
-1. Ensure system clean does not result on looping %'s when calling DISM
-2. Ensure modular structure not compromised by dependencies (all added modules are loaded in properly 
+1. Set up modules <-- PRORITY
+2. Ensure system clean does not result on looping %'s when calling DISM
+3. Ensure modular structure not compromised by dependencies (all added modules are loaded in properly) 
 4. Avoid unnecessary optimizations (if it works don't touch it)
+5. Add a setting for auto updating that is off by default but can be turned on using a command.

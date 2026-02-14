@@ -1,1 +1,0 @@
-Add a setting for auto updating that is off by default but can be turned on using a command.
