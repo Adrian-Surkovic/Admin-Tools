@@ -38,16 +38,16 @@ Show Services: services
 Show Help: Help <-- This menu
 """)
 
-def load_description(path):
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if line.startswith("description"):
-                    # Example: description = "text"
-                    parts = line.split("=", 1)
-                    if len(parts) == 2:
-                        return parts[1].strip().strip('"').strip("'")
-        return None
-    except:
-        return None
+# def load_description(path):
+#     try:
+#         with open(path, "r", encoding="utf-8") as f:
+#             for line in f:
+#                 line = line.strip()
+#                 if line.startswith("description"):
+#                     # Example: description = "text"
+#                     parts = line.split("=", 1)
+#                     if len(parts) == 2:
+#                         return parts[1].strip().strip('"').strip("'")
+#         return None
+#     except:
+#         return None

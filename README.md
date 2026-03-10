@@ -44,3 +44,24 @@ Additionally, it will include services such as:
 - The option to roll back updates if needed (once Git tags are implemented)
 - Permission elevation to ensure all commands run smoothly
 - Clearscreen and other functions either from integration or hardcoding
+
+## **File Structure**
+```
+Admin Tools 3.0.0/
+│
+├── modules/          # Drop‑in commands (system, network, rig, etc.)
+├── services/         # Core services (update, rollback, elevation)
+├── src/              # Embedded runtimes (fallback)
+│   ├── powershell7/
+│   └── python-3.14.2-embed-amd64/
+│
+├── main.py           # Main entry point
+├── start.pyw         # GUI/shortcut launcher
+├── TODO.md           # Development notes
+└── README.md
+```
+## **Usage**
+To run the program, double click the **start.pyw** bootstrapper, it will auto detect if python is present on your device and fallback to the embedded python if it isn't. 
+To enter admin mode, run the **elevate** command. 
+To modify or add modules, simply drop in or edit files py in the **/modules** folder. 
+To modify or add services, simply drop in or edit py files in the **/services** folder.
