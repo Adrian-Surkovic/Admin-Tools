@@ -1,9 +1,9 @@
 1. [x] Set up modules
 2. [X] Set up main services
 3. [X] Add FixWin11Audio to SystemRepair
-4. [ ] Ensure system clean does not loop DISM percentages
+4. [X] Ensure system clean does not loop DISM percentages
 5. [X] Ensure modular structure not compromised
-6. [ ] Avoid unnecessary optimizations
+6. [X] Avoid unnecessary optimizations
 7. [ ] Test backup
 8. [ ] Add settings.json
 9. [ ] Add auto‑update setting (default off)
