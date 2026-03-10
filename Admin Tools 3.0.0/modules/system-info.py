@@ -15,10 +15,26 @@ def main():
     run('powershell "Get-CimInstance Win32_PhysicalMemory | Format-Table BankLabel, Capacity, Speed, Manufacturer"')
 
     print("\n[Active Processes]")
-    run('powershell "Get-Process | Sort-Object CPU -Descending | Select-Object Name, CPU, ID | Format-Table -AutoSize"')
+    choice = input("Open Task Manager? (y/n): ").strip().lower()
 
+    match choice:
+        case "y":
+            run('start taskmgr')
+        case "n":
+            print("Skipping Processes.")
+        case _:
+            print("Invalid input. Skipping.")
+    
     print("\n[Graphics Pipeline]")
     run('powershell "Get-CimInstance Win32_VideoController | Format-Table Name, DriverVersion, VideoModeDescription, CurrentRefreshRate"')
 
     print("\n[Startup Programs]")
-    run('powershell "Get-CimInstance Win32_StartupCommand | Format-Table Name, Command, Location"')
+    choice = input("Open Startup Apps? (y/n): ").strip().lower()
+
+    match choice:
+        case "y":
+            run('start ms-settings:startupapps')
+        case "n":
+            print("Skipping Startup Apps.")
+        case _:
+            print("Invalid input. Skipping.")

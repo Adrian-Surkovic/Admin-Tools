@@ -1,4 +1,6 @@
 import os
+import subprocess
+from pathlib import Path
 
 description = "Allows the user to control the flow of the terminal"
 
@@ -13,3 +15,10 @@ def pause(shell):
 
 def cls(shell):
     os.system("cls")
+
+def restart(shell, arg=None):
+    
+    print("Restarting terminal...")
+    # Launch the new instance
+    subprocess.Popen(["cmd.exe", "/c", "start", "", "pythonw", "start.pyw"], shell=True)
+    os._exit(0)

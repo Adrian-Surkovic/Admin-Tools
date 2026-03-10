@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 import importlib.util
+import json
 
 os.system("title Admin Tools")
 
@@ -10,11 +11,38 @@ SERVICES_DIR = ROOT / "services"
 
 class Shell:
     def __init__(self):
+        self.settings = self.load_settings()
+        self.apply_settings()
         self.tools = self.list_tools()
         self.services = self.list_services()
         self.core_builtins = {"commands", "services", "help"}
         self.dynamic_builtins = self.scan_service_builtins()
 
+    # ------------------------------
+    # Settings Loader
+    # ------------------------------
+    def load_settings(self):
+        settings_path = ROOT / "settings.json"
+        if not settings_path.exists():
+            return {}
+        try:
+            with open(settings_path, "r") as f:
+                return json.load(f)
+        except Exception:
+            print("Warning: settings.json is corrupted or unreadable.")
+            return {}
+
+    # ------------------------------
+    # Settings Applier
+    # ------------------------------
+    def apply_settings(self):
+        color = self.settings.get("default_color")
+        if color:
+            os.system(f"color {color}")
+
+        title = self.settings.get("default_title")
+        if title:
+            os.system(f"title {title}")
     # ------------------------------
     # File scanning
     # ------------------------------
