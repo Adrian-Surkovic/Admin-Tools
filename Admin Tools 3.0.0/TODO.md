@@ -3,7 +3,7 @@
 [ ] Implement optional auto update via ```bash git pull```
 [ ] Implement version tags for rollback
 
-Pipeline for 7:
+Pipeline for tags:
 ```bash
 git add .
 git commit -m "vX.X.X"

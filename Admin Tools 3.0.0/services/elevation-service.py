@@ -1,7 +1,9 @@
 import ctypes
 from pathlib import Path
+import subprocess
 
-description = "Elevates the terminal to administrator mode"
+description = "Allows the user to switch between base and elevated mode"
+
 
 def elevate(shell):
     print("Requesting administrator privileges...")
@@ -14,12 +16,7 @@ def elevate(shell):
     params = f'"{MAIN}"'
 
     result = ctypes.windll.shell32.ShellExecuteW(
-        None,
-        "runas",
-        str(EMBEDDED_PY),
-        params,
-        None,
-        1
+        None, "runas", str(EMBEDDED_PY), params, None, 1
     )
 
     if result <= 32:

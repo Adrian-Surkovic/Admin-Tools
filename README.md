@@ -25,10 +25,12 @@ I am not responsible for any misuse of this program in illegal or unethical cont
 
 ---
 
-## **Important Note**
-The **SystemBoost** command disables certain Windows Defender scheduled tasks to improve performance.  
+## **Important Notes**
+The **system-boost** command disables certain Windows Defender scheduled tasks to improve performance.  
 This may reduce system protection.  
 Use at your own risk — and seriously, don’t download malware.
+
+The **system-backup** command will not backup folders saved to Onedrive. This is a known non-issue as it means the things you are trying to backup are already saved. 
 
 ---
 

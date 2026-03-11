@@ -11,12 +11,9 @@ SERVICES_DIR = ROOT / "services"
 
 class Shell:
     def __init__(self):
-        self.settings = self.load_settings()
-        self.apply_settings()
         self.tools = self.list_tools()
         self.services = self.list_services()
-        self.core_builtins = {"commands", "services", "help"}
-        self.dynamic_builtins = self.scan_service_builtins()
+        self.builtins = self.scan_service_builtins()
 
     # ------------------------------
     # Settings Loader
@@ -43,6 +40,7 @@ class Shell:
         title = self.settings.get("default_title")
         if title:
             os.system(f"title {title}")
+
     # ------------------------------
     # File scanning
     # ------------------------------
@@ -90,6 +88,15 @@ class Shell:
         return builtins
 
     # ------------------------------
+    # Built-in description parsing
+    # ------------------------------
+    def find_service_for_command(self, command):
+        for name, path in self.services.items():
+            module = self.load_module(path)
+            if hasattr(module, command):
+                return name, module
+        return None, None
+    # ------------------------------
     # Built-in execution
     # ------------------------------
     def run_builtin(self, cmd):
@@ -119,6 +126,9 @@ class Shell:
 def main():
     shell = Shell()
 
+    shell.settings = shell.load_settings()
+    shell.apply_settings()
+
     print("Admin Tools Terminal")
     print("Type commands, services, or help — or 'exit' to quit.\n")
 
@@ -132,13 +142,8 @@ def main():
         if lower == "exit":
             break
 
-        # Built-in commands (commands/services/help)
-        if lower in shell.core_builtins:
-            shell.run_builtin(lower)
-            continue
-
-        # Dynamic built-ins from services
-        if lower.split(" ")[0] in shell.dynamic_builtins:
+        # Built-ins from services
+        if lower.split(" ")[0] in shell.builtins:
             shell.run_builtin(cmd)
             continue
 

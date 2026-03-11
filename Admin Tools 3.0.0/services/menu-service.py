@@ -1,17 +1,13 @@
-# from pathlib import Path
-# import importlib.util
-
 description = "Provides the commands, services, and help menus"
 
 def commands(shell):
     print("\nAvailable commands:")
 
     print("\nBuilt-In Commands:")
-    for name in shell.core_builtins:
-        print(f"  {name:<20} - built-in command")
-
-    for name in sorted(shell.dynamic_builtins):
-        print(f"  {name:<20} - from services")
+    for cmd in sorted(shell.builtins):
+        svc_name, svc_module = shell.find_service_for_command(cmd)
+        desc = getattr(svc_module, "description", "No description provided")
+        print(f"  {cmd:<20} - {desc}")
 
     print("\nModular Commands:")
     for name, path in shell.tools.items():
@@ -20,34 +16,32 @@ def commands(shell):
 
     print()
 
+
 def services(shell):
-    print("\nAvailable services:")
+    print("\nAvailable services:\n")
 
     for name, path in shell.services.items():
         module = shell.load_module(path)
-        desc = getattr(module, "description", "No description provided")
-        print(f"  {name:<20} - {desc}")
+
+        # Collect commands belonging to this service
+        cmds = []
+        for cmd in shell.builtins:
+            if hasattr(module, cmd):
+                cmds.append(cmd)
+
+        # Format EXACTLY how you requested:
+        # ui-service           - color, title
+        cmd_list = ", ".join(cmds) if cmds else "No commands"
+
+        print(f"{name:<20} - {cmd_list}")
 
     print()
 
+
 def help(shell):
     print("""
-=== Admin Tools Help === 
+=== Admin Tools Help ===
 Show Commands: commands
-Show Services: services 
-Show Help: Help <-- This menu
+Show Services: services
+Show Help: help
 """)
-
-# def load_description(path):
-#     try:
-#         with open(path, "r", encoding="utf-8") as f:
-#             for line in f:
-#                 line = line.strip()
-#                 if line.startswith("description"):
-#                     # Example: description = "text"
-#                     parts = line.split("=", 1)
-#                     if len(parts) == 2:
-#                         return parts[1].strip().strip('"').strip("'")
-#         return None
-#     except:
-#         return None

@@ -1,8 +1,6 @@
 import os
 import ctypes
 
-description = "Restarts Windows Audio services to fix sound issues"
-
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
@@ -13,7 +11,10 @@ def run(cmd):
     print(f"\n[Running] {cmd}")
     os.system(cmd)
 
-def main():
+def fix_audio(shell):
+    name = "fix-audio"
+    description = "Restarts Windows Audio services to fix sound issues"
+
     if not is_admin():
         print("This module requires administrator privileges.")
         print("Please run the terminal as admin or use the elevate service.")
