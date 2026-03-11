@@ -1,18 +1,35 @@
-description = "Provides the commands, services, and help menus"
+description = "Provides the commands, services, and help menus" #<-- the description is here, make THIS display when i type "services"
+# Or make it print menu-service     -
 
 def commands(shell):
     print("\nAvailable commands:")
 
     print("\nBuilt-In Commands:")
-    for cmd in sorted(shell.builtins):
-        svc_name, svc_module = shell.find_service_for_command(cmd)
-        desc = getattr(svc_module, "description", "No description provided")
+    for cmd in sorted(shell.service_cmds):
+        func = shell.service_cmds[cmd]
+
+        # In the old system: svc_module = module containing the command
+        # In the new system: we stored module description on the function
+        desc = (
+            getattr(func, "_service_description", None)
+            or getattr(func, "__doc__", None)
+            or "No description provided"
+        )
+
         print(f"  {cmd:<20} - {desc}")
 
     print("\nModular Commands:")
-    for name, path in shell.tools.items():
-        desc = shell.load_description(path)
-        print(f"  {name:<20} - {desc or 'No description provided'}")
+    for cmd in sorted(shell.module_cmds):
+        func = shell.module_cmds[cmd]
+
+        # Same logic as above, but for module commands
+        desc = (
+            getattr(func, "_module_description", None)
+            or getattr(func, "__doc__", None)
+            or "No description provided"
+        )
+
+        print(f"  {cmd:<20} - {desc}")
 
     print()
 
@@ -20,20 +37,18 @@ def commands(shell):
 def services(shell):
     print("\nAvailable services:\n")
 
-    for name, path in shell.services.items():
-        module = shell.load_module(path)
+    # In the old system: services were files
+    # In the new system: services = service commands
+    for cmd in sorted(shell.service_cmds):
+        func = shell.service_cmds[cmd]
 
-        # Collect commands belonging to this service
-        cmds = []
-        for cmd in shell.builtins:
-            if hasattr(module, cmd):
-                cmds.append(cmd)
+        desc = (
+            getattr(func, "_service_description", None)
+            or getattr(func, "__doc__", None)
+            or "No description provided"
+        )
 
-        # Format EXACTLY how you requested:
-        # ui-service           - color, title
-        cmd_list = ", ".join(cmds) if cmds else "No commands"
-
-        print(f"{name:<20} - {cmd_list}")
+        print(f"{cmd:<20} - {desc}")
 
     print()
 
