@@ -1,8 +1,6 @@
 import os
 import ctypes
 
-description = "Repairs system files, system image, and disk using SFC, DISM, and CHKDSK"
-
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()

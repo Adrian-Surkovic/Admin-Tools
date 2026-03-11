@@ -1,7 +1,5 @@
 import os
 
-description = "Displays system battery, memory, processes, graphics, and startup info"
-
 def run(cmd):
     print(f"\n[Running] {cmd}")
     os.system(cmd)

@@ -1,7 +1,5 @@
 import os
 
-description = "Allows the user to customize the look of the terminal"
-
 def color(shell, arg=None):
     cmd_name = "color"
     cmd_description = "changes the terminal color scheme using hex codes (e.g. 0A, 1F, A1)"

@@ -1,8 +1,6 @@
 import os
 import ctypes
 
-description = "Tweaks system settings to boost performance"
-
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()

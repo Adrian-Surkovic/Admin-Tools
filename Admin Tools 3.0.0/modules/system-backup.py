@@ -1,8 +1,6 @@
 import os
 import ctypes
 
-description = "Backs up user files or creates a full system restore point."
-
 # This will be set by your settings-service later.
 # Valid options: "none", "restore_point", "file_backup", "both"
 backup_mode = "none"

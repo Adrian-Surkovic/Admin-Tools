@@ -2,8 +2,6 @@ import ctypes
 from pathlib import Path
 import subprocess
 
-description = "Allows the user to switch between base and elevated mode"
-
 
 def elevate(shell):
     cmd_name = "elevate"

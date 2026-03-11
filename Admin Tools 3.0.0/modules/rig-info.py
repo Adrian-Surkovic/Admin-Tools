@@ -1,8 +1,5 @@
 import os
 
-description = "Displays your computers info"
-
-
 def run(cmd):
     print(f"\n[Running] {cmd}")
     os.system(cmd)

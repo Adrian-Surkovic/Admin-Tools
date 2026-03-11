@@ -1,8 +1,6 @@
 import os
 import ctypes
 
-description = "Runs SFC, DISM, CHKDSK and clears CBS logs for system integrity checks"
-
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()

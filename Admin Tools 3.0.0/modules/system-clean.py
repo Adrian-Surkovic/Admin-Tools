@@ -1,8 +1,6 @@
 import os
 import ctypes
 
-description = "Performs deep system cleanup: cache, temp files, DNS, ARP, Winsock, and Windows Update"
-
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()

@@ -1,4 +1,5 @@
 # **Admin Tools – Modular, Script‑Driven Utilities for Windows**
+![Admin Tools Banner](image.png)
 
 Easily modifiable admin tools covering everything from system, rig, and network information to diagnostics and repair.
 
@@ -70,3 +71,15 @@ To modify or add services, simply drop in or edit py files in the **/services** 
 
 ## **Changing Settings**
 To change settings, you must first run the **settings** command. This will enter a settings prompt where you can change settings. Type **options** for a list of settings.
+
+## ** Custom Module / Service Template **
+```py
+imports
+def function(shell):
+    cmd_name=""
+    cmd_description=""
+```
+# Notes: #
+1. **Modules** are user facing commands whereas **Services** can directly affect the way the terminal works.
+2. Multiple functions can be defined, only functions with **cmd_name** and **cmd_description** will be loaded.
+3. if you put ```function()`` at the end of your module or service it will auto run.  

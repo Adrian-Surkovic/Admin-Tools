@@ -4,8 +4,6 @@ import sys
 import subprocess
 from pathlib import Path
 
-description = "Edit persistent terminal settings"
-
 SETTINGS_PATH = Path(__file__).parent.parent / "settings.json"
 
 
