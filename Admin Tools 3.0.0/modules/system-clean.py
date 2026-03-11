@@ -14,6 +14,8 @@ def run(cmd):
     os.system(cmd)
 
 def main():
+    cmd_name = "system-clean"
+    cmd_description = "Performs deep system cleanup: cache, temp files, DNS, ARP, Winsock, and Windows Update"
     if not is_admin():
         print("This module requires administrator privileges.")
         print("Please run the terminal as admin or use the elevate service.")

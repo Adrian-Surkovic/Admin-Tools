@@ -12,8 +12,8 @@ def run(cmd):
     os.system(cmd)
 
 def fix_audio(shell):
-    name = "fix-audio"
-    description = "Restarts Windows Audio services to fix sound issues"
+    cmd_name = "fix-audio"
+    cmd_description = "Restarts Windows Audio services to fix sound issues"
 
     if not is_admin():
         print("This module requires administrator privileges.")

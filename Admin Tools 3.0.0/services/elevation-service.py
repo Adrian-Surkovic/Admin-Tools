@@ -6,6 +6,8 @@ description = "Allows the user to switch between base and elevated mode"
 
 
 def elevate(shell):
+    cmd_name = "elevate"
+    cmd_description = "restarts the terminal with administrator privileges"
     print("Requesting administrator privileges...")
 
     ROOT = Path(__file__).resolve().parents[1]

@@ -9,6 +9,8 @@ def run(cmd):
 
 
 def main():
+    cmd_name = "network-info"
+    cmd_description = "Displays your networks info"
     print("[Open Ports & Connections]")
     run("netstat -ano")
 

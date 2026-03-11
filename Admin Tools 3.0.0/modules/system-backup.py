@@ -32,6 +32,8 @@ def backup_files():
     print("\nBackup complete. Folders saved to %SystemDrive%\\Backup")
 
 def main():
+    cmd_name = "system-backup"
+    cmd_description = "Backs up user files or creates a full system restore point."
     if backup_mode == "none":
         print("Backup module loaded. No action selected.")
         print("Use settings to choose: file backup, restore point, or both.")

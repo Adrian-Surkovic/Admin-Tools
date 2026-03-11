@@ -14,6 +14,8 @@ def run(cmd):
     os.system(cmd)
 
 def main():
+    cmd_name = "system-repair"
+    cmd_description = "Repairs system files, system image, and disk using SFC, DISM, and CHKDSK"
     if not is_admin():
         print("This module requires administrator privileges.")
         print("Please run the terminal as admin or use the elevate service.")

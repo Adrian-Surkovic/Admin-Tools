@@ -9,6 +9,8 @@ def run(cmd):
 
 
 def main():
+    cmd_name = "rig-info"
+    cmd_description = "Displays your computers info"
     print("[CPU]")
     run(
         'powershell "Get-CimInstance Win32_Processor | Format-Table Name, MaxClockSpeed, NumberOfCores"'

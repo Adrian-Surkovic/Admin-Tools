@@ -10,6 +10,8 @@ SETTINGS_PATH = Path(__file__).parent.parent / "settings.json"
 
 
 def settings(shell, arg=None):
+    cmd_name = "settings"
+    cmd_description = "opens the settings editor for terminal customization"
     # Load settings with empty-file handling
     try:
         raw = SETTINGS_PATH.read_text(encoding="utf-8").strip()

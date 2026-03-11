@@ -2,6 +2,9 @@ from pathlib import Path
 import importlib.util
 import json
 import os
+import ast
+import inspect
+
 
 os.system("title Admin Tools")
 
@@ -13,7 +16,6 @@ SERVICES_DIR = ROOT / "services"
 class Shell:
     def __init__(self):
         self.service_cmds = self.load_service_commands()
-        self.module_cmds = self.load_module_commands()
 
     # ------------------------------
     # Settings Loader
@@ -58,52 +60,58 @@ class Shell:
     def load_service_commands(self):
         commands = {}
 
-        for py in SERVICES_DIR.glob("*.py"):
-            module = self.load_python_module(py)
-            module_desc = getattr(module, "description", None)
+        for dir_path in [SERVICES_DIR, TOOLS_DIR]:
+            for py in dir_path.glob("*.py"):
+                module = self.load_python_module(py)
+                module_name = py.stem.lower()
 
-            for name in dir(module):
-                if name.startswith("_"):
-                    continue
+                for name, func in module.__dict__.items():
+                    if not callable(func):
+                        continue
 
-                func = getattr(module, name)
-                if not callable(func):
-                    continue
+                    # Try to read the function source
+                    try:
+                        source = inspect.getsource(func)
+                        tree = ast.parse(source)
+                    except Exception:
+                        continue
 
-                # Attach module-level description if function has none
-                if not hasattr(func, "_service_description") and module_desc:
-                    func._service_description = module_desc
+                    cmd_name = None
+                    cmd_desc = None
 
-                commands[name.lower()] = func
+                    # Look for assignments inside the function
+                    for node in ast.walk(tree):
+                        if isinstance(node, ast.Assign):
+                            for target in node.targets:
+                                if isinstance(target, ast.Name):
+
+                                    if target.id == "cmd_name" and isinstance(node.value, ast.Constant) and isinstance(node.value.value, str):
+                                        cmd_name = node.value.value
+
+                                    if target.id == "cmd_description" and isinstance(node.value, ast.Constant) and isinstance(node.value.value, str):
+                                        cmd_desc = node.value.value
+
+                    # Skip functions without both metadata
+                    if cmd_name is None or cmd_desc is None:
+                        continue
+
+                    # Normalize missing fields
+                    if cmd_name is None:
+                        cmd_name = name.lower()
+                    if cmd_desc is None:
+                        cmd_desc = "None"
+
+                    # Attach metadata
+                    func._service_name = cmd_name
+                    func._service_description = cmd_desc
+                    func._service_module = module_name
+
+                    commands[cmd_name.lower()] = func
 
         return commands
 
-    # ------------------------------
-    # Modular Command Loader
-    # ------------------------------
-    def load_module_commands(self):
-        modules = {}
 
-        for py in TOOLS_DIR.glob("*.py"):
-            module = self.load_python_module(py)
-            module_name = py.stem.lower()
 
-            module_desc = getattr(module, "description", None)
-            subcommands = {}
-
-            for name, func in module.__dict__.items():
-                if name.startswith("_") or not callable(func):
-                    continue
-
-                # Attach module-level description if function has none
-                if not hasattr(func, "_module_description") and module_desc:
-                    func._module_description = module_desc
-
-                subcommands[name.lower()] = func
-
-            modules[module_name] = subcommands
-
-        return modules
 
     # ------------------------------
     # Command Execution
@@ -112,29 +120,14 @@ class Shell:
         parts = cmd.split()
         head = parts[0].lower()
 
-        # 1. Service commands
+        # Service commands
         if head in self.service_cmds:
             func = self.service_cmds[head]
-            func(self, *parts[1:])
-            return
-
-        # 2. Module namespace
-        if head in self.module_cmds:
-            module = self.module_cmds[head]
-
-            if len(parts) == 1:
-                print(f"Module '{head}' commands:")
-                for sub in module:
-                    print(f"  {head} {sub}")
-                return
-
-            sub = parts[1].lower()
-            if sub in module:
-                func = module[sub]
-                func(self, *parts[2:])
-                return
-
-            print(f"Unknown subcommand: {head} {sub}")
+            module = getattr(func, "_service_module", "")
+            if "-service" in module:
+                func(self, *parts[1:])
+            else:
+                func(*parts[1:])
             return
 
         print(f"Unknown command: {cmd}")

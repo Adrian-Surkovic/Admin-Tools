@@ -14,6 +14,8 @@ def run(cmd):
     os.system(cmd)
 
 def main():
+    cmd_name = "system-diagnostics"
+    cmd_description = "Runs SFC, DISM, CHKDSK and clears CBS logs for system integrity checks"
     if not is_admin():
         print("This module requires administrator privileges.")
         print("Please run the terminal as admin or use the elevate service.")

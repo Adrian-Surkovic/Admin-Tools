@@ -7,6 +7,8 @@ def run(cmd):
     os.system(cmd)
 
 def main():
+    cmd_name = "system-info"
+    cmd_description = "Displays system battery, memory, processes, graphics, and startup info"
     print("\n[Battery]")
     run('powercfg /batteryreport /output "%TEMP%\\battery-report.html"')
     print("Battery report saved to: %TEMP%\\battery-report.html")
