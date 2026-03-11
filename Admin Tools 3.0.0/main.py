@@ -21,12 +21,12 @@ class Shell:
     # Settings Loader
     # ------------------------------
     def load_settings(self):
-        settings_path = ROOT / "settings.json"
-        if not settings_path.exists():
+        SETTINGS_PATH = Path(__file__).parent / "json" / "settings.json"
+        if not SETTINGS_PATH.exists():
             return {}
 
         try:
-            with open(settings_path, "r") as f:
+            with open(SETTINGS_PATH, "r") as f:
                 return json.load(f)
         except Exception:
             print("Warning: settings.json is corrupted or unreadable.")

@@ -4,7 +4,7 @@ import sys
 import subprocess
 from pathlib import Path
 
-SETTINGS_PATH = Path(__file__).parent.parent / "settings.json"
+SETTINGS_PATH = Path(__file__).parent.parent / "json" / "settings.json"
 
 
 def settings(shell, arg=None):
