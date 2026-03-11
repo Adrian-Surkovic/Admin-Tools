@@ -1,4 +1,5 @@
 {
     "default_color": "3",
-    "default_title": "Control Panel"
+    "default_title": "Control Panel",
+    "auto_update": "on"
 }

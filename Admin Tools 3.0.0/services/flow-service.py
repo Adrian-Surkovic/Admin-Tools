@@ -16,6 +16,8 @@ def pause(shell):
 
 
 def cls(shell):
+    cmd_name = "cls"
+    cmd_description = "clears the screen"
     os.system("cls")
 
 def restart(shell, arg=None):

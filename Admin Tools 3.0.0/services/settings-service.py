@@ -38,6 +38,7 @@ def settings(shell, arg=None):
             print("\nEditable settings:")
             print("  color <value>   - Set default terminal color (e.g., 0A, 1F, A1)")
             print("  title <text>    - Set default terminal title")
+            print("  auto-update <On/Off> - Toggle automatic updates")
             print("  save / exit     - Save and restart\n")
             continue
 
@@ -55,6 +56,9 @@ def settings(shell, arg=None):
         elif key == "title":
             data["default_title"] = value
             print(f"Set default_title = {value}")
+        elif key == "auto-update":
+            data["auto_update"] = value.lower()
+            print(f"Set auto-update = {value}")
         else:
             print("Unknown setting. Type 'options' for help.")
 

@@ -1,9 +1,6 @@
 import os
 import ctypes
 
-# This will be set by your settings-service later.
-# Valid options: "none", "restore_point", "file_backup", "both"
-backup_mode = "none"
 
 def is_admin():
     try:
@@ -16,10 +13,18 @@ def run(cmd):
     os.system(cmd)
 
 def create_restore_point():
+    cmd_name = "restore-point"
+    cmd_description = "Create a system restore point"
+    if not is_admin():
+            print("Restore point creation requires administrator privileges.")
+            print("Please run the terminal as admin or use the elevate service.")
+            return
     print("Creating System Restore Point...")
     run('powershell -command "Checkpoint-Computer -Description \'SystemBackup Tool\' -RestorePointType \'MODIFY_SETTINGS\'"')
 
 def backup_files():
+    cmd_name = "backup-files"
+    cmd_description = "Backup documents, pictures, music, and vidoes to a drive"
     print("\nBacking up key folders...")
 
     run('xcopy "%USERPROFILE%\\Documents" "%SystemDrive%\\Backup\\Documents" /E /I /Y')
@@ -28,21 +33,3 @@ def backup_files():
     run('xcopy "%USERPROFILE%\\Videos" "%SystemDrive%\\Backup\\Videos" /E /I /Y')
 
     print("\nBackup complete. Folders saved to %SystemDrive%\\Backup")
-
-def main():
-    cmd_name = "system-backup"
-    cmd_description = "Backs up user files or creates a full system restore point."
-    if backup_mode == "none":
-        print("Backup module loaded. No action selected.")
-        print("Use settings to choose: file backup, restore point, or both.")
-        return
-
-    if backup_mode in ("restore_point", "both"):
-        if not is_admin():
-            print("Restore point creation requires administrator privileges.")
-            print("Please run the terminal as admin or use the elevate service.")
-            return
-        create_restore_point()
-
-    if backup_mode in ("file_backup", "both"):
-        backup_files()
