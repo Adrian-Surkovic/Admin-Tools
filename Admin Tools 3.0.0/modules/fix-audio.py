@@ -11,7 +11,7 @@ def run(cmd):
     print(f"\n[Running] {cmd}")
     os.system(cmd)
 
-def fix_audio(shell):
+def fix_audio():
     cmd_name = "fix-audio"
     cmd_description = "Restarts Windows Audio services to fix sound issues"
 
