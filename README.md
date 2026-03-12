@@ -33,6 +33,9 @@ Use at your own risk — and seriously, don’t download malware.
 
 The **system-backup** command will not backup folders saved to Onedrive. This is a known non-issue as it means the things you are trying to backup are already saved. 
 
+## **Developer Note**
+The automatic update system is fully implemented, but I’m unable to test it myself because I always run the latest development version. The update mechanism only triggers when a user’s local version is behind the version published on GitHub. This means real‑world testing can only be done by users who are running an older version. If you encounter any issues with the updater, please report them so I can address them quickly.
+
 ---
 
 ## **Version 3.0.0 (Python Edition)**
@@ -40,22 +43,17 @@ The **system-backup** command will not backup folders saved to Onedrive. This is
 Modding support will follow the same philosophy as the original version:  
 **simple, modular, drop‑in commands with minimal setup.**
 
-Version 3.0.0 will also (eventually) introduce the ability to wrap around Command Prompt, PowerShell, or PowerShell 7 and hook directly into their commands.
-
-Additionally, it will include services such as:
-- Auto‑updates (disabled by default)
-- The option to roll back updates if needed (once Git tags are implemented)
-- Permission elevation to ensure all commands run smoothly
-- Clearscreen and other functions either from integration or hardcoding
+Version 3.0.0 will also (eventually) introduce the ability to wrap around PowerShell 7 and hook directly into the commands.
 
 ## **File Structure**
 ```
 Admin Tools 3.0.0/
 │
+├── json/             # Contains settings json file and version file.
 ├── modules/          # Drop‑in commands (system, network, rig, etc.)
 ├── services/         # Core services (update, rollback, elevation)
 ├── src/              # Embedded runtimes (fallback)
-│   ├── powershell7/
+│   ├── powershell7/  # Planned
 │   └── python-3.14.2-embed-amd64/
 │
 ├── main.py           # Main entry point

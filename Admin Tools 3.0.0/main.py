@@ -4,6 +4,15 @@ import json
 import os
 import ast
 import inspect
+import sys
+
+
+path = Path(__file__).parent / "services" / "version-service.py"
+spec = importlib.util.spec_from_file_location("version_service", path)
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+
+_auto_update_bootstrap = module._auto_update_bootstrap
 
 
 os.system("title Admin Tools")
@@ -109,6 +118,7 @@ class Shell:
                     commands[cmd_name.lower()] = func
 
         return commands
+        
 
 
 
@@ -142,6 +152,7 @@ def main():
     shell.settings = shell.load_settings()
     shell.apply_settings()
 
+    _auto_update_bootstrap(shell)
     print("Admin Tools Terminal")
     print("Type commands, services, or help — or 'exit' to quit.\n")
 
