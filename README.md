@@ -62,7 +62,8 @@ Admin Tools 3.0.0/
 └── README.md
 ```
 ## **Basic Usage**
-To run the program, double click the **start.pyw** bootstrapper, it will auto detect if python is present on your device and fallback to the embedded python if it isn't. 
+To run the program, double click the **start.pyw** bootstrapper, if you do not have python installed you may use the python that comes bundled in the src folder. 
+The program was tested and coded on Python 3.14.2, however other version may work. 
 To enter admin mode, run the **elevate** command. 
 To modify or add modules, simply drop in or edit files py in the **/modules** folder. 
 To modify or add services, simply drop in or edit py files in the **/services** folder.
