@@ -21,6 +21,12 @@ You may use, modify, and distribute this program for any purpose, **as long as y
 
 ---
 
+## **Setup**
+- **With Python installed**: Simply double click the .pyw, that's all.
+- **Without Python installed**: Windows will ask you how you want to run it, click 'choose an app ont his pc' and then navigate to the src folder of the program and double click python.exe.
+
+---
+
 ## **Disclaimer**
 I am not responsible for any misuse of this program in illegal or unethical contexts.
 
